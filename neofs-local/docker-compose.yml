@@ -1,0 +1,374 @@
+version: '2.4'
+
+networks:
+  default:
+    name: neofs-local-net
+
+services:
+  gw-backend:
+    image: nspccdev/neofs-http-gate:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-gw-backend
+    depends_on:
+      holder01:
+        condition: service_healthy
+    environment:
+      - GW_REQUEST_TIMEOUT=40h
+      - GW_LISTEN_ADDRESS=:8080
+      - GW_NEOFS_NODE_ADDR=neofs-holder-01:8080
+
+  gw-nginx:
+    image: nginx:latest
+    container_name: neofs-gw-nginx
+    depends_on:
+      - gw-backend
+    volumes:
+      - ./nginx/nginx-gw.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 7000:80
+
+  grafana:
+    image: grafana/grafana:${GRAFANA_VERSION}
+    container_name: neofs-grafana
+    depends_on:
+      - prometheus
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./grafana/grafana.ini:/etc/grafana/grafana.ini:ro
+      - ./grafana/dashboards/:/etc/grafana/dashboards/:ro
+      - ./grafana/provisioning/:/etc/grafana/provisioning/:ro
+    environment:
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+    restart: always
+
+  prometheus:
+    image: prom/prometheus:v${PROMETHEUS_VERSION}
+    container_name: neofs-prometheus
+    volumes:
+      - ./prometheus/:/etc/prometheus/:ro
+    command: [
+      '--config.file=/etc/prometheus/prometheus.yml',
+      '--storage.tsdb.path=/prometheus',
+      '--storage.tsdb.retention=20d',
+      '--web.console.libraries=/usr/share/prometheus/console_libraries',
+      '--web.console.templates=/usr/share/prometheus/consoles',
+    ]
+    ports:
+      - 9090:9090
+    restart: always
+
+  master1:
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-ir-01
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      prometheus:
+        condition: service_started
+      grafana:
+        condition: service_started
+    env_file: ./.env
+    volumes:
+      - ./${NEOFS_KEY01}:/${NEOFS_KEY01}:ro
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=${NEOFS_KEY01}
+      - NEOFS_NODE_OPTIONS_0=/State:IR
+
+  master2:
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-ir-02
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      prometheus:
+        condition: service_started
+      grafana:
+        condition: service_started
+    env_file: ./.env
+    volumes:
+      - ./${NEOFS_KEY02}:/${NEOFS_KEY02}:ro
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=${NEOFS_KEY02}
+      - NEOFS_NODE_OPTIONS_0=/State:IR
+
+  master3:
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-ir-03
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      prometheus:
+        condition: service_started
+      grafana:
+        condition: service_started
+    env_file: ./.env
+    volumes:
+      - ./${NEOFS_KEY03}:/${NEOFS_KEY03}:ro
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=${NEOFS_KEY03}
+      - NEOFS_NODE_OPTIONS_0=/State:IR
+
+  master4:
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-ir-04
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      prometheus:
+        condition: service_started
+      grafana:
+        condition: service_started
+    env_file: ./.env
+    volumes:
+      - ./${NEOFS_KEY04}:/${NEOFS_KEY04}:ro
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=${NEOFS_KEY04}
+      - NEOFS_NODE_OPTIONS_0=/State:IR
+
+## Use Country code from
+## https://github.com/grafana/worldmap-panel/blob/master/src/data/countries.json
+## https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+
+  holder01:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-01
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Europe/Country:IT/City:Roma
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder02:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-02
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Europe/Country:DE/City:Berlin
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder03:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-03
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Asia/Country:KR/City:Seoul
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder04:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-04
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Asia/Country:CN/City:Beijing
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder05:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-05
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:NorthAmerica/Country:CA/City:Ottawa
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder06:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-06
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:SouthAmerica/Country:BR/City:SaoPaulo
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder07:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-07
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:NorthAmerica/Country:US/City:NewYork
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder08:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-08
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Australia/Country:AU/City:Sydney
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder09:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-09
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Europe/Country:ES/City:Madrid
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
+
+  holder10:
+    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-holder-10
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    depends_on:
+      master1:
+        condition: service_healthy
+      master2:
+        condition: service_healthy
+      master3:
+        condition: service_healthy
+      master4:
+        condition: service_healthy
+    env_file: ./.env
+    volumes:
+      - ./keys/user.key:/user.key:ro
+    ports:
+      - 8080:8080
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=user.key
+      - NEOFS_NODE_OPTIONS_0=/Location:Europe/Country:GB/City:London
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month

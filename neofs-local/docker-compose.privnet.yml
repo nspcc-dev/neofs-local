@@ -1,0 +1,32 @@
+version: '2.4'
+services:
+
+  # why we need waiter:
+  # https://github.com/docker/compose/issues/4369
+  waiter:
+    image: busybox
+    depends_on:
+      privnet:
+        condition: service_healthy
+
+  privnet:
+    image: cityofzion/neo-privatenet:${NEO_PRIVNET_VERSION}
+    container_name: neofs-privnet
+    healthcheck:
+      test: ['CMD', 'bash', '-c', 'exec 6<>/dev/tcp/127.0.0.1/20336']
+      timeout: 1s
+      retries: 50
+    stop_signal: SIGKILL
+    ports:
+      - "20333-20336:20333-20336/tcp"
+
+  np-prompt:
+    image: cityofzion/neo-python:v${NEO_PYTHON_VERSION}
+    command: ["np-prompt", "-v", "-c", "/neo-python/protocol.neofs.json"]
+    container_name: neofs-np-prompt
+    depends_on:
+      - waiter
+    volumes:
+      - ./privnet/cgas.avm:/sc/cgas.avm:ro
+      - ./privnet/neofs_privnet.avm:/sc/neofs_privnet.avm:ro
+      - ./privnet/protocol.json:/neo-python/protocol.neofs.json:ro

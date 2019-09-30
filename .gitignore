@@ -1,0 +1,13 @@
+data/*
+!data/.gitkeep
+
+keys/*
+!keys/.gitkeep
+
+testnet/keys/*
+!testnet/keys/.gitkeep
+
+.idea
+.vscode
+vendor
+dump

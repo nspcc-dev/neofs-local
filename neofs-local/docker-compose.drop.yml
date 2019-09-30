@@ -1,0 +1,31 @@
+version: '2.4'
+
+services:
+  drop-nginx:
+    image: nginx:latest
+    container_name: neofs-drop-nginx
+    depends_on:
+      - drop-ui
+      - drop-backend
+    volumes:
+      - ./nginx/nginx-drop.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 7001:80
+
+  drop-ui:
+    image: nspccdev/neofs-drop-ui:0.0.2-pre
+    container_name: neofs-drop-ui
+
+  drop-backend:
+    image: nspccdev/neofs-dropin:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-drop-backend
+    depends_on:
+      holder01:
+        condition: service_healthy
+    volumes:
+      - ./keys/user.key:/user.key:ro
+    environment:
+      - DROP_PRIVATE_KEY=user.key
+      - DROP_LISTEN_ADDRESS=:8080
+      - DROP_AUTO_CREATE_CONTAINER=true
+      - DROP_NEOFS_NODE_ADDR=neofs-holder-01:8080
