@@ -14,3 +14,7 @@
 - NeoFS cli - 1
 
 Read more in [**How to**](./neofs-local/HOWTO.md)
+
+## Problems / issues?
+
+If you have some problems or issues, [**write to us**](https://github.com/nspcc-dev/neofs-local/issues/new?assignees=&labels=bug&template=bug_report.md&title=%5BBUG%5D)
