@@ -142,6 +142,8 @@ Container created: 5nSrsLLoSfT5UfCUwxYyCeHkhda2VbBLDmuoVrNqLL1n
 **Wait until container will be accepted on Consensus**
 
 ## Let's see what I have at my `/data` folder
+
+I've added a few files(`cat_in_space.jpeg`,`cat_in_space.mp4`, `cat_in_space.zip`) to `/data` folder so I can use them later.
 ```
 bash-5.0# ls -lah  /data 
 total 60M    
@@ -154,6 +156,9 @@ drwxr-xr-x    1 root     root        4.0K Sep  2 10:04 ..
 ```
 
 ## Let's upload my cat's foto 
+
+**Attention** without creation of StorageGroup, your files will be removed in a few minutes.
+How to create StorageGroup you can find [here](##Let's create StorageGroup for our files).
 
 I have very cool foto `/data/cat_in_space.jpeg`
 ```
@@ -201,6 +206,9 @@ Object successfully fetched
 **Oh, it's amazing!**
 
 ## Let's upload my cat's video
+
+**Attention** without creation of StorageGroup, your files will be removed in a few minutes.
+How to create StorageGroup you can find [here](##Let's create StorageGroup for our files).
 
 I have some prepared video: `/data/cat_in_space.mp4`
 
@@ -251,8 +259,6 @@ Object successfully fetched
 
 ## Let's create StorageGroup for our files
 
-**Attention** without creation StorageGroup, your files will be removed in few minutes
-
 ```
 # CID: 5nSrsLLoSfT5UfCUwxYyCeHkhda2VbBLDmuoVrNqLL1n
 # First file:
@@ -269,7 +275,7 @@ SGID will be generated: e8f85163-55a6-4960-9e12-30c6dbfcf881
 storage group sent to the consensus
 ```
 
-**Wait until SG be accepted on consensus**
+**Wait until SG is accepted on consensus**
 
 ## Let's try to work with our StorageGroups
 
