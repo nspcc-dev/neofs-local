@@ -49,9 +49,12 @@ ERROR: error pulling image configuration: Get https://registry-1.docker.io/v2/li
 # NEOFS_WORKERS_INDEXER_DISABLED=false
 # NEOFS_INDEXER_START_FROM=4000
 # NEOFS_INDEXER_ENDPOINT=http://privnet:30333
-# NEOFS_INDEXER_ADDRESSES_0=5f67fd9f24343804837866825c18c33dbbdf4eaf
+# NeoFS Smart Contract scripthash
+#NEOFS_INDEXER_ADDRESSES_0=dcc5902c9e8c63286894015ffd27097fd0ac9656
 ```
-
+And change `NEOFS_INDEXER_ADDRESSES_0` to SC scripthash used in NeoPrivateNetwork,
+ e.g.`dcc5902c9e8c63286894015ffd27097fd0ac9656`.
+ 
 There are operations that require user's deposit e.g. container creation.
 If you want to start NeoPrivateNetwork, then you might want to do operations with actual payment:
 create user's deposit, pay for the container creation, pay for the storage etc. 
@@ -267,11 +270,14 @@ Object successfully fetched
 # ID: af5416a6-9fc6-4e9f-92d3-7bb7197cd41f
 # Getting this id's from previous steps and pass to command
 #
-# neofs-cli sg build --cid <cid> --oid <id1> --oid <id2>
+# neofs-cli sg put --cid <cid> --oid <id1> --oid <id2>
 
-bash-5.0# neofs-cli sg build --cid 5nSrsLLoSfT5UfCUwxYyCeHkhda2VbBLDmuoVrNqLL1n --oid 67d79328-f33a-4896-ba15-7b2def754f94 --oid af5416a6-9fc6-4e9f-92d3-7bb7197cd41f
+bash-5.0# neofs-cli sg put --cid 5nSrsLLoSfT5UfCUwxYyCeHkhda2VbBLDmuoVrNqLL1n --oid 67d79328-f33a-4896-ba15-7b2def754f94 --oid af5416a6-9fc6-4e9f-92d3-7bb7197cd41f
 
-SGID will be generated: e8f85163-55a6-4960-9e12-30c6dbfcf881
+Storage group successfully stored
+        ID: ab0dd79f-5f52-4846-b863-e78b5a7d84e0
+        CID: 4V1cdTPmk5x4SUZnCdma7tukm9UV9zadv9DbwM25e5Rq
+
 storage group sent to the consensus
 ```
 
@@ -281,21 +287,23 @@ storage group sent to the consensus
 
 - list all our SGID's
 ```
-bash-5.0# neofs-cli sg list
+bash-5.0# neofs-cli sg list --cid 5nSrsLLoSfT5UfCUwxYyCeHkhda2VbBLDmuoVrNqLL1n
 
-e8f85163-55a6-4960-9e12-30c6dbfcf881
+Container ID: Object ID
+4V1cdTPmk5x4SUZnCdma7tukm9UV9zadv9DbwM25e5Rq: ab0dd79f-5f52-4846-b863-e78b5a7d84e0
+
 ```
 - list all our files in SGID
 ```
-# e8f85163-55a6-4960-9e12-30c6dbfcf881
+# ab0dd79f-5f52-4846-b863-e78b5a7d84e0
 # 
 # Get SGID from previous step and fill command
 #
 # neofs-cli sg get --sgid <sgid>
 
-bash-5.0# neofs-cli sg get --sgid e8f85163-55a6-4960-9e12-30c6dbfcf881
+bash-5.0# neofs-cli sg get --sgid ab0dd79f-5f52-4846-b863-e78b5a7d84e0 --cid 4V1cdTPmk5x4SUZnCdma7tukm9UV9zadv9DbwM25e5Rq
 
-StorageGroupID: e8f85163-55a6-4960-9e12-30c6dbfcf881
+StorageGroupID: ab0dd79f-5f52-4846-b863-e78b5a7d84e0
 ---
 Size: 31172363
 ContainerID: 5nSrsLLoSfT5UfCUwxYyCeHkhda2VbBLDmuoVrNqLL1n

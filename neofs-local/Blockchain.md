@@ -1,4 +1,4 @@
-# How prepare NEO PrivateNetwork to using with NeoFS Local 
+# How prepare NEO PrivateNetwork for using it with NeoFS Local 
 
 ## Up environment
 ```
@@ -58,6 +58,9 @@ Please fill out the following contract details:
 
 Creating smart contract....
 
+ "hash": "0xdcc5902c9e8c63286894015ffd27097fd0ac9656",
+ "script": "......",
+
 // ...
 
 Enter your password to continue and deploy this contract
@@ -67,6 +70,7 @@ Enter your password to continue and deploy this contract
 
 Relayed Tx: ba34a9cf4b18dc50c990f501187067ec48fac8bfdf350aa181e7fb803987be39 
 ```
+Save hash `0xdcc5902c9e8c63286894015ffd27097fd0ac9656` for later.
 
 **Wait until tx's will be approved**
 
@@ -98,8 +102,10 @@ Enter your password to continue and deploy this contract
 Relayed Tx: 1edaca74312868d0ee5af68c49b8fcbdc60846c5446c6755987f0eb1eedad8a5 
 ```
 - invoke deploying for NeoFS SC (**pass: coz**)
+
+*Use previously saved hash `0xdcc5902c9e8c63286894015ffd27097fd0ac9656`* for invoking Deploy.
 ```
-neo> sc invoke 0x5f67fd9f24343804837866825c18c33dbbdf4eaf Deploy []
+neo> sc invoke 0xdcc5902c9e8c63286894015ffd27097fd0ac9656 Deploy []
 
 // ...
 
@@ -112,7 +118,7 @@ Relayed Tx: b4569faed23f9208cada1b39e2525cc789ae40e16397003c0b2af9813c6f3162
 ```
 - invoke deposit for NeoFS SC (**pass: coz**)
 ```
-neo> sc invoke 0x5f67fd9f24343804837866825c18c33dbbdf4eaf Deposit  [b'031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a', 1000]
+neo> sc invoke 0xdcc5902c9e8c63286894015ffd27097fd0ac9656 Deposit [b'031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a', 1000]
 
 // ...
 
