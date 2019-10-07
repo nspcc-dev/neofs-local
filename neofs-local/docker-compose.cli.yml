@@ -6,10 +6,10 @@ services:
     command: ["bash"]
     container_name: neofs-cli
     depends_on:
-      - holder10
+      - storage10
     volumes:
       - ../data:/data
       - ./keys/user.key:/user.key:ro
     environment:
       - NEOFS_CLI_KEY=/user.key
-      - NEOFS_CLI_ADDRESS=holder10:8080
+      - NEOFS_CLI_ADDRESS=storage10:8080

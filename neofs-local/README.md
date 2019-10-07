@@ -32,7 +32,7 @@ $ make local_down
 $ make local_cli
 ```
 
-*You can use `holder01:8080` as host address for connection*
+*You can use `storage01:8080` as host address for connection*
 
 ## Run NeoFS DropIn service
 

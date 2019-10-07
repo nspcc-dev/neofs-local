@@ -47,53 +47,53 @@ scrape_configs:
     static_configs:
       - targets: ['master6:8090']
 
-  - job_name: 'holder01'
+  - job_name: 'storage01'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder01:8090']
-  - job_name: 'holder02'
+      - targets: ['storage01:8090']
+  - job_name: 'storage02'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder02:8090']
-  - job_name: 'holder03'
+      - targets: ['storage02:8090']
+  - job_name: 'storage03'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder03:8090']
-  - job_name: 'holder04'
+      - targets: ['storage03:8090']
+  - job_name: 'storage04'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder04:8090']
-  - job_name: 'holder05'
+      - targets: ['storage04:8090']
+  - job_name: 'storage05'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder05:8090']
-  - job_name: 'holder06'
+      - targets: ['storage05:8090']
+  - job_name: 'storage06'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder06:8090']
-  - job_name: 'holder07'
+      - targets: ['storage06:8090']
+  - job_name: 'storage07'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder07:8090']
-  - job_name: 'holder08'
+      - targets: ['storage07:8090']
+  - job_name: 'storage08'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder08:8090']
-  - job_name: 'holder09'
+      - targets: ['storage08:8090']
+  - job_name: 'storage09'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder09:8090']
-  - job_name: 'holder10'
+      - targets: ['storage09:8090']
+  - job_name: 'storage10'
     scrape_interval: 5s
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['holder10:8090']
+      - targets: ['storage10:8090']

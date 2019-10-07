@@ -399,7 +399,7 @@
       },
       "targets": [
         {
-          "expr": "neofs_count_objects_on_node{job=~\"^holder.*$\"}",
+          "expr": "neofs_count_objects_on_node{job=~\"^storage.*$\"}",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -456,7 +456,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "neofs_count_objects_on_node{job=~\"^holder.*$\"}",
+          "expr": "neofs_count_objects_on_node{job=~\"^storage.*$\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -634,7 +634,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(neofs_grpc_connections{job=~\"^holder.*$\", state=~\"^.*$\"}) by (job)",
+          "expr": "sum(neofs_grpc_connections{job=~\"^storage.*$\", state=~\"^.*$\"}) by (job)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{ job }}",
@@ -720,7 +720,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "go_goroutines{job=~\"^holder.*$\"}",
+          "expr": "go_goroutines{job=~\"^storage.*$\"}",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -808,7 +808,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(neofs_grpc_connections{job=~\"^holder.*$\"}) by (job)",
+          "expr": "sum(neofs_grpc_connections{job=~\"^storage.*$\"}) by (job)",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -897,7 +897,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "go_memstats_alloc_bytes{job=~\"^holder.*$\"}",
+          "expr": "go_memstats_alloc_bytes{job=~\"^storage.*$\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{job}} mem",

@@ -9,12 +9,12 @@ services:
     image: nspccdev/neofs-http-gate:${NEOFS_IMAGES_VERSION}
     container_name: neofs-gw-backend
     depends_on:
-      holder01:
+      storage01:
         condition: service_healthy
     environment:
       - GW_REQUEST_TIMEOUT=40h
       - GW_LISTEN_ADDRESS=:8080
-      - GW_NEOFS_NODE_ADDR=neofs-holder-01:8080
+      - GW_NEOFS_NODE_ADDR=neofs-storage-01:8080
 
   gw-nginx:
     image: nginx:latest
@@ -139,9 +139,9 @@ services:
 ## https://github.com/grafana/worldmap-panel/blob/master/src/data/countries.json
 ## https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
 
-  holder01:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-01
+  storage01:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-01
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -162,9 +162,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder02:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-02
+  storage02:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-02
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -185,9 +185,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder03:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-03
+  storage03:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-03
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -208,9 +208,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder04:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-04
+  storage04:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-04
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -231,9 +231,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder05:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-05
+  storage05:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-05
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -254,9 +254,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder06:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-06
+  storage06:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-06
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -277,9 +277,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder07:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-07
+  storage07:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-07
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -300,9 +300,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder08:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-08
+  storage08:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-08
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -323,9 +323,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder09:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-09
+  storage09:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-09
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
@@ -346,9 +346,9 @@ services:
       - NEOFS_NODE_OPTIONS_1=/Capacity:1
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
-  holder10:
-    image: nspccdev/neofs-node-holder:${NEOFS_IMAGES_VERSION}
-    container_name: neofs-holder-10
+  storage10:
+    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    container_name: neofs-storage-10
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
       timeout: 1s
