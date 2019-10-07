@@ -78,7 +78,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(neofs_objectmanager_chunk_num{job=~\"$holder\"})",
+          "expr": "count(neofs_objectmanager_chunk_num{job=~\"$storage\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -161,7 +161,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "count(neofs_objectmanager_chunk_migrate_count{job=~\"$holder\"})",
+          "expr": "count(neofs_objectmanager_chunk_migrate_count{job=~\"$storage\"})",
           "format": "time_series",
           "interval": "",
           "intervalFactor": 1,
@@ -202,9 +202,9 @@
         "definition": "neofs_objectmanager_chunk_migrate_count",
         "hide": 0,
         "includeAll": true,
-        "label": "Holder",
+        "label": "Storage",
         "multi": false,
-        "name": "holder",
+        "name": "storage",
         "options": [
           {
             "selected": true,
@@ -213,58 +213,58 @@
           },
           {
             "selected": false,
-            "text": "holder1",
-            "value": "holder1"
+            "text": "storage1",
+            "value": "storage1"
           },
           {
             "selected": false,
-            "text": "holder2",
-            "value": "holder2"
+            "text": "storage2",
+            "value": "storage2"
           },
           {
             "selected": false,
-            "text": "holder3",
-            "value": "holder3"
+            "text": "storage3",
+            "value": "storage3"
           },
           {
             "selected": false,
-            "text": "holder4",
-            "value": "holder4"
+            "text": "storage4",
+            "value": "storage4"
           },
           {
             "selected": false,
-            "text": "holder5",
-            "value": "holder5"
+            "text": "storage5",
+            "value": "storage5"
           },
           {
             "selected": false,
-            "text": "holder6",
-            "value": "holder6"
+            "text": "storage6",
+            "value": "storage6"
           },
           {
             "selected": false,
-            "text": "holder7",
-            "value": "holder7"
+            "text": "storage7",
+            "value": "storage7"
           },
           {
             "selected": false,
-            "text": "holder8",
-            "value": "holder8"
+            "text": "storage8",
+            "value": "storage8"
           },
           {
             "selected": false,
-            "text": "holder9",
-            "value": "holder9"
+            "text": "storage9",
+            "value": "storage9"
           },
           {
             "selected": false,
-            "text": "holder10",
-            "value": "holder10"
+            "text": "storage10",
+            "value": "storage10"
           }
         ],
         "query": "neofs_objectmanager_chunk_migrate_count",
         "refresh": 0,
-        "regex": "/job=\"(holder(\\d)*)\"/",
+        "regex": "/job=\"(storage(\\d)*)\"/",
         "skipUrlSync": false,
         "sort": 3,
         "tagValuesQuery": "",

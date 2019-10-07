@@ -20,7 +20,7 @@ services:
     image: nspccdev/neofs-dropin:${NEOFS_IMAGES_VERSION}
     container_name: neofs-drop-backend
     depends_on:
-      holder01:
+      storage01:
         condition: service_healthy
     volumes:
       - ./keys/user.key:/user.key:ro
@@ -28,4 +28,4 @@ services:
       - DROP_PRIVATE_KEY=user.key
       - DROP_LISTEN_ADDRESS=:8080
       - DROP_AUTO_CREATE_CONTAINER=true
-      - DROP_NEOFS_NODE_ADDR=neofs-holder-01:8080
+      - DROP_NEOFS_NODE_ADDR=neofs-storage-01:8080
