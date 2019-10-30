@@ -8,6 +8,7 @@ LOCAL=neofs-local/docker-compose.yml
 LOCAL_CLI=neofs-local/docker-compose.cli.yml
 LOCAL_DROP=neofs-local/docker-compose.drop.yml
 LOCAL_PRIVNET=neofs-local/docker-compose.privnet.yml
+CLI=docker-compose.cli.yml
 
 .PHONY: help
 
@@ -78,6 +79,10 @@ local_privnet:
 # NeoFS local cli
 local_cli:
 	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) run cli
+
+# NeoFS local cli
+cli:
+	@docker-compose -f $(CLI) run cli
 
 # NeoFS local DropIn service
 local_drop:
