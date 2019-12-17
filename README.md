@@ -6,12 +6,14 @@
 
 ## [NeoFS local](./neofs-local)
 
-**Contains**
-- NeoFS Storage node - 6
-- NeoFS IR node - 6
-- NeoFS HTTP GW - 1
-- NeoFS Nginx - 1
-- NeoFS cli - 1
+**Contains:**
+- NeoFS Storage node - 10
+- NeoFS Inner Ring node - 4
+- NeoFS HTTP Gateway @ [localhost:7000](localhost:7000)
+- NeoFS Drop (Send.NeoFS) @ [localhost:7001](localhost:7000)
+- NeoFS CLI
+- Neo Private net
+- Nginx
 
 Read more in [**How to**](./neofs-local/HOWTO.md)
 

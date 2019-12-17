@@ -6,15 +6,16 @@ networks:
 
 services:
   gw-backend:
-    image: nspccdev/neofs-http-gate:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-http-gate:${NEOFS_GW_VERSION}
     container_name: neofs-gw-backend
     depends_on:
       storage01:
         condition: service_healthy
     environment:
-      - GW_REQUEST_TIMEOUT=40h
+      - GW_REQUEST_TIMEOUT=10m
       - GW_LISTEN_ADDRESS=:8080
-      - GW_NEOFS_NODE_ADDR=neofs-storage-01:8080
+      - GW_NEOFS_ADDRESS=neofs-storage-01:8080
+      - GW_KEY=gen
 
   gw-nginx:
     image: nginx:latest
