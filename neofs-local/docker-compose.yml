@@ -14,8 +14,9 @@ services:
     environment:
       - GW_REQUEST_TIMEOUT=10m
       - GW_LISTEN_ADDRESS=:8080
-      - GW_NEOFS_ADDRESS=neofs-storage-01:8080
-      - GW_KEY=gen
+      - GW_PEERS_0_ADDRESS=neofs-storage-01:8080
+      - GW_PEERS_1_WEIGHT=1.0
+      - GW_KEY=generated
 
   gw-nginx:
     image: nginx:latest
