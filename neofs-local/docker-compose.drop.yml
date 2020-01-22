@@ -28,4 +28,5 @@ services:
       - DROP_KEY=user.key
       - DROP_LISTEN_ADDRESS=:8080
       - DROP_AUTO_CREATE_CID=true
-      - DROP_NEOFS_ADDRESS=neofs-storage-01:8080
+      - DROP_PEERS_0_ADDRESS=neofs-storage-01:8080
+      - DROP_PEERS_0_WEIGHT=1.0
