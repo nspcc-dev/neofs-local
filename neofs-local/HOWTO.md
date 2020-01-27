@@ -332,12 +332,38 @@ $ make local_drop
 
 Once it's running, you can go to [WebUI (localhost:7001)](http://localhost:7001)
 
+## NeoFS CLI configuration order priority
+
+1. config file
+2. environment variables
+3. flags
 
 ## Default configuration
 
-Environment prepared with this default config:
+Environment prepared with this default config (in container):
 ```
-bash-5.0# env
+bash-5.0# cat /.neofs-cli.yml
+key: /user.key
+host: storage10:8080
+```
+
+*You can change default configuration using file `neofs-local/cli/config.yml` (on host)*
+```
+→ cat neofs-local/cli/config.yml 
+key: /user.key
+host: storage10:8080
+```
+
+*You can change default configuration using docker-compose ENV*
+```
+    # add this lines into neofs-local/docker-compose.cli.yml
+    environment:
+      - NEOFS_CLI_KEY=/user.key
+      - NEOFS_CLI_ADDRESS=storage10:8080
+```
+
+*You can change default configuration using ENV: (for example)*
+```
 NEOFS_CLI_KEY=/user.key
 NEOFS_CLI_ADDRESS=storage10:8080
 ```

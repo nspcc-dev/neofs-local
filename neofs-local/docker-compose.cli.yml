@@ -10,6 +10,4 @@ services:
     volumes:
       - ../data:/data
       - ./keys/user.key:/user.key:ro
-    environment:
-      - NEOFS_CLI_KEY=/user.key
-      - NEOFS_CLI_ADDRESS=storage10:8080
+      - ./cli/config.yml:/.neofs-cli.yml
