@@ -62,7 +62,7 @@ services:
     restart: always
 
   master1:
-    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_NODE_VERSION}
     container_name: neofs-ir-01
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -81,7 +81,7 @@ services:
       - NEOFS_NODE_OPTIONS_0=/State:IR
 
   master2:
-    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_NODE_VERSION}
     container_name: neofs-ir-02
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -100,7 +100,7 @@ services:
       - NEOFS_NODE_OPTIONS_0=/State:IR
 
   master3:
-    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_NODE_VERSION}
     container_name: neofs-ir-03
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -119,7 +119,7 @@ services:
       - NEOFS_NODE_OPTIONS_0=/State:IR
 
   master4:
-    image: nspccdev/neofs-node-inner-ring:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-inner-ring:${NEOFS_NODE_VERSION}
     container_name: neofs-ir-04
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -142,7 +142,7 @@ services:
 ## https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
 
   storage01:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-01
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -165,7 +165,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage02:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-02
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -188,7 +188,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage03:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-03
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -211,7 +211,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage04:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-04
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -234,7 +234,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage05:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-05
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -257,7 +257,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage06:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-06
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -280,7 +280,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage07:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-07
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -303,7 +303,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage08:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-08
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -326,7 +326,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage09:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-09
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
@@ -349,7 +349,7 @@ services:
       - NEOFS_NODE_OPTIONS_2=/Price:20.5 # in GAS per Terabyte for a month
 
   storage10:
-    image: nspccdev/neofs-node-storage:${NEOFS_IMAGES_VERSION}
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
     container_name: neofs-storage-10
     healthcheck:
       test: ["CMD", "neofs-node", "-health"]
