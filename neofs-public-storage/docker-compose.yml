@@ -1,0 +1,28 @@
+version: '2.4'
+
+
+## Use Country code from
+## https://github.com/grafana/worldmap-panel/blob/master/src/data/countries.json
+## https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes
+
+
+services:
+  neofs-storage-node:
+    image: nspccdev/neofs-node-storage:${NEOFS_NODE_VERSION}
+    container_name: neofs-storage-node
+    healthcheck:
+      test: ["CMD", "neofs-node", "-health"]
+      timeout: 1s
+      retries: 500
+    env_file: ./.env
+    ports:
+      - '8080:8080'
+    environment:
+      - NEOFS_NODE_PRIVATE_KEY=generated
+      - NEOFS_NODE_OPTIONS_0=/Location:Europe/Country:RU/City:Moscow
+      - NEOFS_NODE_OPTIONS_1=/Capacity:1
+      - NEOFS_NODE_OPTIONS_2=/Price:15.5 # in GAS per Terabyte for a month
+
+networks:
+  default:
+    name: neofs-local-net

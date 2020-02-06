@@ -11,6 +11,8 @@ LOCAL_MINIO=neofs-local/docker-compose.minio.yml
 LOCAL_PRIVNET=neofs-local/docker-compose.privnet.yml
 CLI=docker-compose.cli.yml
 
+PUBLIC_STORAGE=neofs-public-storage/docker-compose.yml
+
 .PHONY: help
 
 # Show this help prompt
@@ -49,6 +51,15 @@ local_dump:
 	@echo "${B}${G}⇒ Thanks! Almost done... ${R}"
 	@echo "${B}${G}⇒ Compress dump folder and send it to us ${R}"
 
+
+# NeoFS public node up
+public_up: COMPOSE_FILE=$(PUBLIC_STORAGE)
+public_up: env_up
+
+# NeoFS public node down
+public_down:
+	@echo "${B}${G}⇒ Stop the world ${R}"
+	@docker-compose -f $(PUBLIC_STORAGE) down
 
 # NeoFS local env up
 local_up: COMPOSE_FILE=$(LOCAL)
