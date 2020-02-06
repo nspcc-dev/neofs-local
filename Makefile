@@ -7,6 +7,7 @@ R=\033[0m
 LOCAL=neofs-local/docker-compose.yml
 LOCAL_CLI=neofs-local/docker-compose.cli.yml
 LOCAL_DROP=neofs-local/docker-compose.drop.yml
+LOCAL_MINIO=neofs-local/docker-compose.minio.yml
 LOCAL_PRIVNET=neofs-local/docker-compose.privnet.yml
 CLI=docker-compose.cli.yml
 
@@ -44,7 +45,7 @@ local_dump:
 	@test .git && echo "${B}${G}⇒ Dump environment info ${R}" && make git_info >> ./dump/git_info
 
 	@echo "${B}${G}⇒ Dump environment logs ${R}"
-	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f $(LOCAL_PRIVNET) logs --no-color >> ./dump/current.log
+	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f $(LOCAL_MINIO) -f $(LOCAL_PRIVNET) logs --no-color >> ./dump/current.log
 	@echo "${B}${G}⇒ Thanks! Almost done... ${R}"
 	@echo "${B}${G}⇒ Compress dump folder and send it to us ${R}"
 
@@ -56,12 +57,12 @@ local_up: env_up
 # NeoFS local env down
 local_down:
 	@echo "${B}${G}⇒ Stop the world ${R}"
-	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) down
+	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f $(LOCAL_MINIO) down
 
 # NeoFS local env stop and remove
 local_clean:
 	@echo "${B}${G}⇒ Stop the world ${R}"
-	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f $(LOCAL_PRIVNET) down
+	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f $(LOCAL_MINIO) -f $(LOCAL_PRIVNET) down
 
 # NeoFS local config
 local_config: COMPOSE_FILE=$(LOCAL)
@@ -69,7 +70,7 @@ local_config: env_config
 
 # NeoFS local pull-images
 local_pull:
-	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f $(LOCAL_PRIVNET) pull
+	@docker-compose -f $(LOCAL) -f $(LOCAL_CLI) -f $(LOCAL_DROP) -f ${LOCAL_MINIO} -f $(LOCAL_PRIVNET) pull
 
 # NeoFS local privnet + np-prompt
 local_privnet:
@@ -87,6 +88,10 @@ cli:
 # NeoFS local DropIn service
 local_drop:
 	@docker-compose -f $(LOCAL) -f $(LOCAL_DROP) up -d --no-recreate
+
+# NeoFS local minio gate
+local_minio:
+	@docker-compose -f $(LOCAL) -f $(LOCAL_MINIO) up -d --no-recreate
 
 # NeoFS local ps
 local_ps:
