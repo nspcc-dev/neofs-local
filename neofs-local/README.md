@@ -41,3 +41,25 @@ $ make local_drop
 ```
 
 **Once it's running, you can go to [WebUI (localhost:7001)](http://localhost:7001)**
+
+## Run NeoFS S3 gate based on minio
+
+S3 gate implemented as minio gateway. It has some neofs-specific limitations. 
+You cannot create or delete s3 buckets because they are mapped to neofs containers.
+To manage buckets use neofs-cli application. You can access objects within 
+created neofs containers. 
+
+Gateway sends requests to host `storage01:8080`.
+
+```
+$ make local_minio
+```
+
+**Minio gateway available at [localhost:9001](http://localhost:9001)**
+
+
+Use wallet address as `AccessKey` and WIF as `SecretKey`. Default neofs-local user:
+```
+AccessKey = AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y
+SecretKey = KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr
+```
