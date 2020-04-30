@@ -54,8 +54,8 @@ ERROR: error pulling image configuration: Get https://registry-1.docker.io/v2/li
 #NEOFS_WORKERS_INDEXER_DISABLED=false
 #NEOFS_INDEXER_START_FROM=4000
 #NEOFS_INDEXER_ENDPOINT=http://privnet:30333
-## NeoFS Smart Contract scripthash
-#NEOFS_SMART_CONTRACT_HASH=0xdcc5902c9e8c63286894015ffd27097fd0ac9656
+...
+#NEOFS_BOOTSTRAP_TYPE=chain
 ```
 
 **Note:** don't forget to change `NEOFS_SMART_CONTRACT_HASH` variable to 
